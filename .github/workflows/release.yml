@@ -1,0 +1,63 @@
+name: Build and Deploy Docker Image
+
+on:
+  push:
+    branches: [ development ]
+
+# GKE_CLUSTER: prism, GKE_ZONE: us-central1-c , DEPLOYMENT_NAME: gke-prism
+env:
+  IMAGE: prism-gha
+  TAG: ${{ github.sha }}  
+  PROJECT_ID: ${{secrets.PROJECT_ID}}
+
+jobs:
+  setup-build-publish-image:
+    name: Setup, Build, Publish
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: project
+    environment: production
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Use Node.js ${{ matrix.node-version }} to build application
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      - run: npm i
+      - run: npm run build --if-present
+      - run: npm test
+      - run: npm audit fix
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.SA_KEY }}
+          project_id: ${{ secrets.PROJECT_ID }}
+
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      # Build the Docker image
+      - name: Build
+        run: |-
+          docker build \
+            --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" \
+            .
+      # Push the Docker image to Google Container Registry
+      - name: Publish
+        run: |-
+          docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
