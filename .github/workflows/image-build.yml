@@ -2,7 +2,6 @@ name: CI-ImageBuilder
 
 on:
   push:
-    branches: [ development ]
     paths:
       - "image-builder/"
 
