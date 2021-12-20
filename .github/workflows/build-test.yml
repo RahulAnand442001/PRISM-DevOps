@@ -5,12 +5,12 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-test:
 
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./project
+        working-directory: project
 
     strategy:
       matrix:
@@ -23,6 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
     - run: npm i
     - run: npm run build --if-present
     - run: npm test
