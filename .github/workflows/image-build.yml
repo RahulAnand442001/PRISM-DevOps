@@ -33,4 +33,4 @@ jobs:
           Created automatically via GitHub Actions, New JSON path updated from AWS S3.
 
     - name: Log created issue
-      run: echo "Issue created successfully"
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
