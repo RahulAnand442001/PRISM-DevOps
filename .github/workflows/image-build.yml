@@ -31,8 +31,6 @@ jobs:
             Build completed for ${{ github.repository }}
         description: |
           Created automatically via GitHub Actions, New JSON path updated from AWS S3.
-      # env:
-      #   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
     - name: Log created issue
-      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
+      run: echo "Issue created successfully"
