@@ -18,7 +18,7 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
     - run : |
         pwd
-        cd project
+        cd PRISM-DevOps/project
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
