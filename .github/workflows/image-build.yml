@@ -3,7 +3,7 @@ name: CI-ImageBuilder
 on:
   push:
     paths:
-      - "image-builder/"
+      - "image-builder/json_path.js"
 
 jobs:
   raise-issuse:
