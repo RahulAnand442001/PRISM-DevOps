@@ -8,6 +8,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./project
 
     strategy:
       matrix:
@@ -21,8 +24,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm i
-      working-directory: ./project
     - run: npm run build --if-present
-      working-directory: ./project
     - run: npm test
-      working-directory: ./project
