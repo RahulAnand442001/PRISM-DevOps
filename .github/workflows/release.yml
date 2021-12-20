@@ -2,7 +2,7 @@ name: Build and Deploy Docker Image
 
 on:
   push:
-    branches: [ development ]
+    branches: [main]
 
 # GKE_CLUSTER: prism, GKE_ZONE: us-central1-c , DEPLOYMENT_NAME: gke-prism
 env:

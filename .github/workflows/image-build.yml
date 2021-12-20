@@ -1,0 +1,39 @@
+name: CI-ImageBuilder
+
+on:
+  push:
+    branches: [ development ]
+    paths:
+      - "image-builder/"
+
+jobs:
+  raise-issuse:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: image-builder
+ 
+    name: Jira Functionality
+    steps:
+    - name: Login Jira
+      uses: atlassian/gajira-login@master
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+
+    - name: Create Issue in Jira
+      id: create
+      uses: atlassian/gajira-create@master
+      with:
+        project: RCG
+        issuetype: Improvement
+        summary: |
+            Build completed for ${{ github.repository }}
+        description: |
+          Created automatically via GitHub Actions, New JSON path updated from AWS S3.
+      # env:
+      #   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+    - name: Log created issue
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
