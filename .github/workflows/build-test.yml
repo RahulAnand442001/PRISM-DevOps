@@ -16,13 +16,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
-    - run : |
-        pwd
-        cd PRISM-DevOps/project
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm i
+      working-directory: ./project
     - run: npm run build --if-present
+      working-directory: ./project
     - run: npm test
+      working-directory: ./project
