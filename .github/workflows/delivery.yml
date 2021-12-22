@@ -5,7 +5,7 @@ on:
     branches: [ development ]          
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
   GKE_CLUSTER: prism
   GKE_ZONE: us-central1-c
   DEPLOYMENT_NAME: gke-prism
@@ -24,8 +24,8 @@ jobs:
         # Setup Google Cloud CLI
         - uses: google-github-actions/setup-gcloud@v0.2.0
           with:
-            service_account_key: ${{ secrets.GKE_SA_KEY }}
-            project_id: ${{ secrets.GKE_PROJECT }}
+            service_account_key: ${{ secrets.SA_KEY }}
+            project_id: ${{ secrets.PROJECT_ID }}
 
         # Configure Docker to use the gcloud command-line tool as a credential
         # helper for authentication
@@ -36,7 +36,7 @@ jobs:
           with:
             cluster_name: ${{ env.GKE_CLUSTER }}
             location: ${{ env.GKE_ZONE }}
-            credentials: ${{ secrets.GKE_SA_KEY }}      
+            credentials: ${{ secrets.SA_KEY }}      
         # Set up kustomize
         - name: Set up Kustomize
           run: |-
