@@ -12,12 +12,9 @@ jobs:
       run:
         working-directory: image-builder
 
-    name: JSON Path Update & Jira Functionality
+    name: Jira Functionality
     steps:
     
-    - name : Update Path from Image-Builder to Project
-      run: pwd
-
     - name: Login Jira
       uses: atlassian/gajira-login@master
       env:
