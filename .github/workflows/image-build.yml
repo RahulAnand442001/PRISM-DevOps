@@ -11,9 +11,15 @@ jobs:
     defaults:
       run:
         working-directory: image-builder
- 
-    name: Jira Functionality
+
+    name: JSON Path Update & Jira Functionality
     steps:
+    
+    - name : Update Path from Image-Builder to Project
+      run: |-
+          rm project/src/s3.js
+          cp json_path.js project/src/s3.js
+
     - name: Login Jira
       uses: atlassian/gajira-login@master
       env:
