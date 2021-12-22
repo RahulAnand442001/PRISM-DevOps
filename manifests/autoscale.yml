@@ -8,3 +8,5 @@ metadata:
 spec:
   scaleTargetRef:
     kind: "Deployment"
+  minReplicas: 1
+  maxReplicas: 3
