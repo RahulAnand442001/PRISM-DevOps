@@ -1,6 +1,5 @@
 apiVersion: "autoscaling/v2beta2"
 kind: "HorizontalPodAutoscaler"
-name: prisme-gke-hpa
 metadata:
   name: prism-gke-hpa-v7bb
   namespace: "default"

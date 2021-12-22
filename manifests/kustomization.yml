@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
 - deployment.yml
 - service.yml
-- autoscale.yml
 namespace: default
 images:
 - name: prism-gha
