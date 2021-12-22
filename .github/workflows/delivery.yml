@@ -8,7 +8,7 @@ env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   GKE_CLUSTER: prism
   GKE_ZONE: us-central1-c
-  DEPLOYMENT_NAME: gke-prism
+  DEPLOYMENT_NAME: prism-gke
   IMAGE: prism-gha
 
 jobs:
