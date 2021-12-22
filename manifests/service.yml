@@ -1,0 +1,16 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "prism-gke-service"
+  namespace: "default"
+  labels:
+    app: "prism-gke"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 3000
+  selector:
+    app: "prism-gke"
+  type: "LoadBalancer"
+  loadBalancerIP: "http://35.223.84.221/"

@@ -1,0 +1,20 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "prism-gke"
+  namespace: "default"
+  labels:
+    app: "prism-gke"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "prism-gke"
+  template:
+    metadata:
+      labels:
+        app: "prism-gke"
+    spec:
+      containers:
+      - name: "prism-gha-1"
+        image: "gcr.io/prism-vi207iter/prism-gha:a8e1c9b0a1ef2da937a18ded6260a92e3193838b"

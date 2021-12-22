@@ -1,0 +1,12 @@
+apiVersion: "autoscaling/v2beta2"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: prism-gke-hpa-v7bb
+  namespace: "default"
+  labels:
+    app: "prism-gke"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+  minReplicas: 1
+  maxReplicas: 3
